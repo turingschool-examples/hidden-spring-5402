@@ -57,4 +57,33 @@ RSpec.describe BikeClub do
             expect(biker3.rides.length).to eq(2)
         end
     end
+
+    describe 'best_time' do
+        it 'can find the biker with the best time' do
+            bike_club = BikeClub.new("Sons of Anarchy")
+            biker1 = Biker.new("Sal", 30)
+            biker2 = Biker.new("Sam", 15)
+            biker3 = Biker.new("Sue", 20)
+            biker1.learn_terrain!(:gravel)
+            biker2.learn_terrain!(:gravel)
+            biker3.learn_terrain!(:gravel)
+
+            bike_club.add_biker(biker1)
+            bike_club.add_biker(biker2)
+            bike_club.add_biker(biker3)
+
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :gravel})
+            ride2 = Ride.new({name: "Cherry Creek Trail", distance: 7, loop: false, terrain: :gravel})
+
+            biker1.log_ride(ride1, 41.2)
+            biker1.log_ride(ride2, 40.2)
+            biker2.log_ride(ride1, 60.2)
+            biker2.log_ride(ride2, 52.2)
+            biker3.log_ride(ride1, 61.2)
+            biker3.log_ride(ride2, 44.2)
+
+            expect(bike_club.best_time(ride1)).to eq(biker1)
+            expect(bike_club.best_time(ride2)).to eq(biker1)
+        end
+    end
 end

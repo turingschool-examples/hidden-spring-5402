@@ -19,4 +19,11 @@ class BikeClub
             biker.rides.length
         end
     end
+
+    #checks bikers best_time by accessing @bikers, and returns the biker with the best time. min_by is a method that returns the element that has the minimum value of the block.
+    def best_time(ride)
+        @bikers.min_by do |biker|
+            biker.personal_record_for(ride)
+        end
+    end
 end
