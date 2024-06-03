@@ -23,7 +23,7 @@ class Biker
 
         elsif !@acceptable_terrains.include?(ride.terrain)
             puts "#{self.name} does not know this terrain yet."
-            
+
         elsif self.max_distance < ride.total_distance
             puts "#{self.name} cannot ride that far."
         end
@@ -31,6 +31,10 @@ class Biker
 
     #will look for the .min time in the rides hash for the ride
     def personal_record_for(ride)
-        @rides[ride].min
+        if !@rides.empty?
+            @rides[ride].min
+        else
+            return false
+        end
     end
 end

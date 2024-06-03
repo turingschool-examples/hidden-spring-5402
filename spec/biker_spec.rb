@@ -72,5 +72,14 @@ RSpec.describe Biker do
             biker.log_ride(ride1, 40.2)
             expect(biker.personal_record_for(ride1)).to eq(40.2)
         end
+
+        #will not log ride because of its distance. Will return false due to the @rides hash being empty.
+        it 'returns false if there is no personal record' do
+            biker = Biker.new("Sal", 30)
+            biker.learn_terrain!(:gravel)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 16, loop: false, terrain: :gravel})
+            biker.log_ride(ride1, 60.2)
+            expect(biker.personal_record_for(ride1)).to eq(false)
+        end
     end
 end
