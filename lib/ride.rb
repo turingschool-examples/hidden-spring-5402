@@ -1,5 +1,3 @@
-require './lib/ride'
-
 class Ride
   attr_reader :name, :distance, :loop, terrain:
 
