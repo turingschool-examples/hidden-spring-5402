@@ -1,3 +1,5 @@
+require './lib/ride'
+
 class Ride
   attr_reader :name, :distance, :loop, terrain:
 
@@ -14,17 +16,6 @@ class Ride
   end
 end
 
-pry(main)> ride1.name
-# => "Walnut Creek Trail"
+ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
 
-pry(main)> ride1.distance
-# => 10.7
-
-pry(main)> ride1.terrain
-# => :hills
-
-pry(main)> ride1.loop?
-# => false
-
-pry(main)> ride1.total_distance
-# => 21.4
+ride2 =Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
