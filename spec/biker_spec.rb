@@ -1,6 +1,8 @@
 require './lib/ride'
 require './lib/biker'
 
+include Ride
+
 class Biker
   attr_reader :name,
               :acceptable_terrain,
@@ -30,6 +32,15 @@ class Biker
     expect(max_distance).to eq (30)
   end
 
+  if acceptable_terrain && < max_distance
+    puts "Completed Ride"
+  else
+    puts "Couldn't Complete Ride"  
+  end  
+  # add in ride logs 
+  # create method to calculate personal record
+  # create method to determine if a ride is in biker's acceptable terrain and less than max distance
+
   it 'has a name' do
     biker = Biker2.new("Athena")
     name = biker2.name
@@ -47,4 +58,13 @@ class Biker
     max_distance = biker2.max_distance
     expect(max_distance).to eq (65)
   end
+
+  if acceptable_terrain && < max_distance
+    puts "Completed Ride"
+  else
+    puts "Couldn't Complete Ride"  
+  end  
+  # add in ride logs 
+  # create method to calculate personal record
+  # create method to determine if a ride is in biker's acceptable terrain and less than max distance
 end
