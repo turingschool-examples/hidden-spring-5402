@@ -13,5 +13,13 @@ class Biker
         @acceptable_terrain = []
     end
 
+    def learn_terrain!(terrain)
+        if !@acceptable_terrain.include?(terrain)
+            @acceptable_terrain << terrain
+        end
+    end  
 
+    def log_ride(ride, distance)
+        @rides[ride.name] = {ride: ride, distance: distance}
+    end
 end
