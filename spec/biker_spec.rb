@@ -45,7 +45,7 @@ RSpec.describe Biker do
   end
 
   describe '#personal_record' do
-    it 'can return lowest time when passed a ride route'
+    it 'can return lowest time when passed a ride route' do
       biker = Biker.new("Kenny", 30)
       biker.learn_terrain!(:gravel)
       biker.learn_terrain!(:hills)
@@ -58,6 +58,7 @@ RSpec.describe Biker do
 
       expect(biker.personal_record(ride1)).to eq 91.1
       expect(biker.personal_record(ride2)).to eq 60.9
+    end
   end
-
+  
 end
