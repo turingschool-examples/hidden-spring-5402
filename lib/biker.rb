@@ -20,6 +20,6 @@ class Biker
     end  
 
     def log_ride(ride, distance)
-        @rides[ride.name] = {ride: ride, distance: distance}
+        @rides[ride] = @rides.fetch(ride, []) << distance
     end
 end
