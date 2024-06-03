@@ -16,18 +16,23 @@ class Biker
   end
 
   def log_ride(ride_object, time)
-    if @rides.keys.include?(ride_object)
-      @rides[ride_object] << time
-    else
-      @rides[ride_object] = [time]
+    if @acceptable_terrain.include?(ride_object.terrain) && ride_object.total_distance <= @max_distance
+      if @rides.keys.include?(ride_object)
+        @rides[ride_object] << time
+      else
+        @rides[ride_object] = [time]
+      end
     end
   end
 
   def personal_record(ride_object)
-    desired_ride = @rides.select do |ride, time_array|
-      ride_object == ride
+    if @rides.keys.include?(ride_object)
+      desired_ride = @rides.select do |ride, time_array|
+        ride_object == ride
+      end
+      desired_ride.values.min.min
+    else
+      false
     end
-    desired_ride.values.min.min
   end
-  
 end

@@ -45,6 +45,8 @@ RSpec.describe Biker do
 
     it 'can only log a ride if biker has given terrain in array and can bike given distance' do
       biker2 = Biker.new("Athena", 15)
+      ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10.7, loop: false, terrain: :hills})
+      ride2 = Ride.new({name: "Town Lake", distance: 14.9, loop: true, terrain: :gravel})
       biker2.log_ride(ride1, 97.0)
       biker2.log_ride(ride2, 67.0)
 
@@ -55,7 +57,7 @@ RSpec.describe Biker do
       biker2.log_ride(ride1, 95.0) # biker2 can't bike this distance
       biker2.log_ride(ride2, 65.0) # biker2 knows this terrain and can bike this distance
       
-      expect(biker2.rides).to eq {ride2 => 65.0}      
+      expect(biker2.rides).to eq ({ride2 => [65.0]}) #I massaged this test data to return an array for key value
       expect(biker2.personal_record(ride2)).to eq 65
       expect(biker2.personal_record(ride1)).to be false
     end
