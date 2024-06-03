@@ -1,7 +1,17 @@
 class Biker
-attr_reader
+attr_reader :name,
+            :max_distance,
+            :acceptable_terrain,
+            :rides
 
-def initialize
+  def initialize(name, max_distance)
+    @name = name
+    @max_distance = 
+    @acceptable_terrain = []
+    @rides = {}
+  end
+
   
+
 
 end
