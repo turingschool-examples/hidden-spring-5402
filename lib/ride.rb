@@ -13,3 +13,18 @@ class Ride
   def terrain
   end
 end
+
+pry(main)> ride1.name
+# => "Walnut Creek Trail"
+
+pry(main)> ride1.distance
+# => 10.7
+
+pry(main)> ride1.terrain
+# => :hills
+
+pry(main)> ride1.loop?
+# => false
+
+pry(main)> ride1.total_distance
+# => 21.4
