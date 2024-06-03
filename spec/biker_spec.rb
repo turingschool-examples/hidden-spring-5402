@@ -23,7 +23,7 @@ RSpec.describe Ride do
   end
   
   it "has a name" do
-    expect(@biker.name).to ea("Kenny")
+    expect(@biker.name).to eq("Kenny")
     # pry(main)> biker.name
     # # => "Kenny"
   end
@@ -70,20 +70,20 @@ RSpec.describe Ride do
       @biker.log_ride(@ride2, 61.6)
       # pry(main)> biker.log_ride(ride2, 61.6)
       
-      expect(@biker.rides).to eq({@ride1: [92.5, 91.1], @ride2: [60.9, 61.6]})
+      expect(@biker.rides).to eq({@ride1 => [92.5, 91.1], @ride2 => [60.9, 61.6]})
       # pry(main)> biker.rides
       # # => {
         # #      #<Ride:0x00007fc62ca32a10...> => [92.5, 91.1],
         # #      #<Ride:0x00007fc62cb42ba8...> => [60.9, 61.6]
         # #    }
 
-        expect(@biker.personal_record(@ride1)).to eq(91.1)
-        # pry(main)> biker.personal_record(ride1)
-        # => 91.1
-        
-        expect(@biker.personal_record(@ride2)).to eq(91.1)
-        # pry(main)> biker.personal_record(ride2)
-        # => 60.9
+      expect(@biker.personal_record(@ride1)).to eq(91.1)
+      # pry(main)> biker.personal_record(ride1)
+      # => 91.1
+      
+      expect(@biker.personal_record(@ride2)).to eq(91.1)
+      # pry(main)> biker.personal_record(ride2)
+      # => 60.9
     end
 
     it "can learn terrain but is limited by ride distance for biker2" do
@@ -93,7 +93,7 @@ RSpec.describe Ride do
       @biker2.log_ride(@ride2, 67.0)
       # pry(main)> biker2.log_ride(ride2, 67.0) #biker2 doesn't know this terrain yet
 
-      @biker2.rides
+      expect(@biker2.rides).to eq({})
       # pry(main)> biker2.rides
       # # => {}
 
@@ -105,7 +105,7 @@ RSpec.describe Ride do
 
       @biker2.log_ride(@ride1, 95.0)
       # pry(main)> biker2.log_ride(ride1, 95.0) # biker2 can't bike this distance
-                                                # biker2 can ride 65 miles max
+                                                # biker2 can ride 30 miles max
 
       @biker2.log_ride(@ride2, 65.0)
       # pry(main)> biker2.log_ride(ride2, 65.0) # biker2 knows this terrain and can bike this distance
