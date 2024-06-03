@@ -22,7 +22,7 @@ RSpec.describe Ride do
     it 'can calculate the total distance of a ride' do
         ride1 = Ride.new({name: 'Park Loop', distance: 10, loop: true, terrain: 'flat'})
         ride2 = Ride.new({name: 'Creek Park Loop', distance: 10.4, loop: false, terrain: 'flat'})
-        expect(ride1.total_distance).to eq(nil)
+        expect(ride1.total_distance).to eq(10.0)
         expect(ride2.total_distance).to eq(20.8)
     end
 end

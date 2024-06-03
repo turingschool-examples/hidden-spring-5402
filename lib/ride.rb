@@ -16,8 +16,11 @@ class Ride
 
         #if loop is false, the total distance is doubled
     def total_distance
-        result = @distance.to_f * 2 if @loop == false
-        result
+        if @loop == false
+            @distance.to_f * 2 
+        else
+            @distance.to_f
+        end
     end
 
 end
