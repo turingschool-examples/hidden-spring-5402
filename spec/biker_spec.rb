@@ -1,5 +1,6 @@
 require './lib/ride'
 require './lib/biker'
+require 'pry'
 
 RSpec.configure do |config|
     config.formatter = :documentation
@@ -33,12 +34,41 @@ RSpec.configure do |config|
         expect(@biker2.acceptable_terrain).to eq([])
        end
 
-       it 'can show learning terrain and storing it in an array' do
+       it 'can show bikers learning terrain and storing it in an array' do
         expect(@biker.acceptable_terrain).to eq([])
         @biker.learn_terrain!(:gravel)
         @biker.learn_terrain!(:hills)
         expect(@biker.acceptable_terrain).to eq([:gravel, :hills])
        end
+
+       it 'can log_ride for each biker' do
+       @biker.log_ride(@ride1, 92.5)
+       @biker.log_ride(@ride1, 91.1)
+       @biker.log_ride(@ride2, 60.9)
+       @biker.log_ride(@ride2, 61.6)
+       expect(@biker.rides).to eq({@ride1 => [92.5, 91.1], @ride2 => [60.9, 61.6]})
+       end
+
+       it 'can determine bikers personal_record' do
+        @biker.log_ride(@ride1, 92.5)
+        @biker.log_ride(@ride1, 91.1)
+        @biker.log_ride(@ride2, 60.9)
+        @biker.log_ride(@ride2, 61.6)
+        expect(@biker.personal_record(@ride1)).to eq(91.1)
+        expect(@biker.personal_record(@ride2)).to eq(60.9)
+        
+       end
+
+    #    it 'can log_ride for another biker' do
+    #     @biker2.log_ride(@ride1, 97.0)
+    #     @biker2.log_ride(@ride2, 67.0)
+    #     expect(@biker2.rides).to eq({}) 
+    #     biker2.learn_terrain!(:gravel)
+    #     biker2.learn_terrain!(:hills)
+    #     expect()
+
+
+    #    end
 
 
     end
