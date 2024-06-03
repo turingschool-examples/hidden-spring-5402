@@ -16,6 +16,11 @@ RSpec.describe Ride do
       expect(@ride1.name).to eq("Walnut Creek Trail")
       expect(@ride1.distance).to eq 10.7
       expect(@ride1.terrain).to eq(:hills)
+    end
+  end
+
+  describe '#total_distance' do
+    it 'can determine total distance based on if trail is a loop or out-and-back' do
       expect(@ride1.loop?).to eq false
       expect(@ride1.total_distance).to eq 21.4
     end
