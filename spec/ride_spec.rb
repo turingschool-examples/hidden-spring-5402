@@ -28,7 +28,7 @@ class Ride
 
   it 'is a loop' do
     loop = Loop.new(false)
-    distance = trail.distance
+    distance = ride.distance
     expect(loop).to eq (false)
   end  
 
