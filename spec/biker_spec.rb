@@ -29,24 +29,48 @@ RSpec.describe Biker do
         ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :gravel})
         biker.log_ride(ride1, 60.2)
         expect(biker.rides).to eq({ride1 => [60.2]})
+        expect { biker.log_ride(ride1, 60.2) }.to output("Sal knows this terrain and can bike this distance.\n").to_stdout
     end
 
-    it 'can add multiple rides' do
-        biker = Biker.new("Sal", 30)
-        biker.learn_terrain!(:gravel)
-        ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :gravel})
-        ride1 = Ride.new({name: "Cherry Creek Trail", distance: 7, loop: false, terrain: :gravel})
-        biker.log_ride(ride1, 60.2)
-        biker.log_ride(ride1, 40.2)
-        expect(biker.rides).to eq({ride1 => [60.2, 40.2]})
+    describe 'log_ride method' do
+        it 'can add multiple rides' do
+            biker = Biker.new("Sal", 30)
+            biker.learn_terrain!(:gravel)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :gravel})
+            ride1 = Ride.new({name: "Cherry Creek Trail", distance: 7, loop: false, terrain: :gravel})
+            biker.log_ride(ride1, 60.2)
+            biker.log_ride(ride1, 40.2)
+            expect(biker.rides).to eq({ride1 => [60.2, 40.2]})
+        end
+
+        it 'will not add rides with terrains that are not acceptable' do
+            biker = Biker.new("Sal", 30)
+            biker.learn_terrain!(:gravel)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :hills})
+            biker.log_ride(ride1, 60.2)
+            expect(biker.rides).to eq({})
+            expect { biker.log_ride(ride1, 60.2) }.to output("Sal does not know this terrain yet.\n").to_stdout
+        end
+
+        it 'will not add rides that are too long' do
+            biker = Biker.new("Sal", 30)
+            biker.learn_terrain!(:gravel)
+            #this rides distance is 32.0 so it should not log.
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 16, loop: false, terrain: :gravel})
+            biker.log_ride(ride1, 60.2)
+            expect(biker.rides).to eq({})
+            expect { biker.log_ride(ride1, 60.2) }.to output("Sal cannot ride that far.\n").to_stdout
+        end
     end
 
-    it 'will not add rides with terrains that are not acceptable' do
-        biker = Biker.new("Sal", 30)
-        biker.learn_terrain!(:gravel)
-        ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :hills})
-        biker.log_ride(ride1, 60.2)
-        expect(biker.rides).to eq({})
-        expect { biker.log_ride(ride1, 60.2) }.to output("This ride does not match any acceptable terrains\n").to_stdout
+    describe 'personal_record_for method' do
+        it 'can find the personal record for a ride' do
+            biker = Biker.new("Sal", 30)
+            biker.learn_terrain!(:gravel)
+            ride1 = Ride.new({name: "Walnut Creek Trail", distance: 10, loop: true, terrain: :gravel})
+            biker.log_ride(ride1, 60.2)
+            biker.log_ride(ride1, 40.2)
+            expect(biker.personal_record_for(ride1)).to eq(40.2)
+        end
     end
 end

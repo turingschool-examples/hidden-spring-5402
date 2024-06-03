@@ -16,11 +16,21 @@ class Biker
 
     #will log a ride with a time, will not log if it does not match acceptable terrain.
     def log_ride(ride, time)
-        if @acceptable_terrains.include?(ride.terrain)
+        if @acceptable_terrains.include?(ride.terrain) && self.max_distance >= ride.total_distance
             @rides[ride] =[] unless @rides.key?(ride)
             @rides[ride] << time
-        else
-            puts "This ride does not match any acceptable terrains"
+            puts "#{self.name} knows this terrain and can bike this distance."
+
+        elsif !@acceptable_terrains.include?(ride.terrain)
+            puts "#{self.name} does not know this terrain yet."
+            
+        elsif self.max_distance < ride.total_distance
+            puts "#{self.name} cannot ride that far."
         end
+    end
+
+    #will look for the .min time in the rides hash for the ride
+    def personal_record_for(ride)
+        @rides[ride].min
     end
 end
