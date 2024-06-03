@@ -19,7 +19,9 @@ class Biker
     if @acceptable_terrain.include?(ride.terrain) && ride.total_distance <= @max_distance
       @rides[:ride] << time
     end
-    binding.pry
+    # I just can't quite wrap my head around what's happening here.
+    # I think it's too early for my brain to reach through objects...
+    # I know what I need to do, I just can't connect the dots here.
   end
 
 end
